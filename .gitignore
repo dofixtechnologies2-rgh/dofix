@@ -21,6 +21,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-/public/public.zip
-/panel/dofix.zip
-panel/dofix.zip 
+public/public.zip
+panel/dofix.zip
