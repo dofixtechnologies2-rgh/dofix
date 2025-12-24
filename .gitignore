@@ -3,6 +3,8 @@
 /public/build
 /public/hot
 /public/storage
+/public/public.zip
+/panel/dofix.zip 
 /storage/*.key
 /storage/pail
 /vendor
