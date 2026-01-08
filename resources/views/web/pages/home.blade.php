@@ -305,7 +305,7 @@
                 <a href="https://dofix.in/service/ac-repair-rent-service-installation" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s1.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s1.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>AC Repair &amp; Rent Service Installation</h5>
@@ -317,7 +317,7 @@
                 <a href="https://dofix.in/service/refrigerator-repair" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s2.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s2.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Refrigerator Repair</h5>
@@ -329,7 +329,7 @@
                 <a href="https://dofix.in/service/washing-machine-repair" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s3.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s3.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Washing Machine Repair</h5>
@@ -341,7 +341,7 @@
                 <a href="https://dofix.in/service/water-purifier-repair-electrician" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s4.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s4.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Water Purifier Repair &amp; Electrician</h5>
@@ -353,7 +353,7 @@
                 <a href="https://dofix.in/service/interior-work" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s5.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s5.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Interior Work</h5>
@@ -365,7 +365,7 @@
                 <a href="https://dofix.in/service/steel-fabrication-work" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s6.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s6.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Steel Fabrication Work</h5>
@@ -377,7 +377,7 @@
                 <a href="https://dofix.in/service/glass-fabrication-work" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s7.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s7.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Glass Fabrication Work</h5>
@@ -389,7 +389,7 @@
                 <a href="https://dofix.in/service/plumber" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s8.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s8.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Plumber</h5>
@@ -401,7 +401,7 @@
                 <a href="https://dofix.in/service/painter" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s9.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s9.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Painter</h5>
@@ -413,7 +413,7 @@
                 <a href="https://dofix.in/service/carpenter" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s10.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s10.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Carpenter</h5>
@@ -425,7 +425,7 @@
                 <a href="https://dofix.in/service/wedding-event" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s11.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s11.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Wedding Event</h5>
@@ -449,7 +449,7 @@
                 <a href="https://dofix.in/service/home-cleaning" class="text-decoration-none">
                 <div class="box">
                     <div class="image">
-                        <img src="public/admin/service_image/s12.jpg" class="img-fluid" alt="AC Repair">
+                        <img src="{{ asset('admin/service_image/s12.jpg') }}" class="img-fluid" alt="AC Repair">
                     </div>
                     <div class="content">
                         <h5>Home Cleaning</h5>
@@ -457,7 +457,7 @@
                 </div>
                 </a>
             </div>
-                    </div>
+        </div>
     </div>
 </section>
 

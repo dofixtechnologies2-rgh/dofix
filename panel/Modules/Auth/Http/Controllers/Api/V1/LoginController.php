@@ -156,7 +156,7 @@ class LoginController extends Controller
     {
         // return response()->json(['data'=>$request->all()]);
         $validator = Validator::make($request->all(), [
-            'guest_id' => 'required|uuid',
+            'guest_id' => 'uuid',
             'type' => 'required|in:phone,email'
         ]);
 

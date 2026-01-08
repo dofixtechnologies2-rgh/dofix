@@ -4998,4 +4998,5 @@ _Message' => 'Customer notification for provider bid offer
   'The email must be a valid email address.' => 'The email must be a valid email address.',
   'The adhar img failed to upload.' => 'The adhar img failed to upload.',
   'total_earning1' => 'Total earning1',
+  'Total Services' => 'Total Services',
 );

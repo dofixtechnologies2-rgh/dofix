@@ -45,6 +45,8 @@ use Rap2hpoutre\FastExcel\FastExcel;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Modules\BookingModule\Entities\ServiceEnquiry;
+use Modules\Notification\Services\NotificationService;
+use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
@@ -1161,39 +1163,112 @@ class BookingController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function paymentUpdate($bookingId, Request $request): JsonResponse
-    {
-        $this->authorize('booking_can_manage_status');
+    public function paymentUpdate(
+         $bookingId,
+         Request $request,
+         NotificationService $notificationService
+     ): JsonResponse {
+         $this->authorize('booking_can_manage_status');
+     
+         Validator::make($request->all(), [
+             'payment_status' => 'required|in:1,0',
+         ]);
 
-        Validator::make($request->all(), [
-            'payment_status' => 'required|in:1,0',
-        ]);
+     
+         $booking = $this->booking->where('id', $bookingId)->first();
+         $repeatBooking = $this->bookingRepeat->where('id', $bookingId)->first();
+     
+         // -------- NORMAL BOOKING --------
+         if ($booking) {
+             $booking->is_paid = $request->payment_status == '1' ? 1 : 0;
+     
+             if ($booking->isDirty('is_paid')) {
+                 $booking->save();
 
-        $booking = $this->booking->where('id', $bookingId)->first();
-
-        $repeatBooking = $this->bookingRepeat->where('id', $bookingId)->first();
-        if (isset($booking)) {
-            $booking->is_paid = $request->payment_status == '1' ? 1 : 0;
-
-            if ($booking->isDirty('is_paid')) {
-                $booking->save();
-                return response()->json(response_formatter(DEFAULT_STATUS_UPDATE_200), 200);
-            }
-            return response()->json(response_formatter(NO_CHANGES_FOUND), 200);
-        }
-        if (isset($repeatBooking)) {
-            $repeatBooking->is_paid = $request->payment_status == '1' ? 1 : 0;
-
-            if ($repeatBooking->isDirty('is_paid')) {
-                $repeatBooking->save();
-                return response()->json(response_formatter(DEFAULT_STATUS_UPDATE_200), 200);
-            }
-            return response()->json(response_formatter(NO_CHANGES_FOUND), 200);
-        }
-        return response()->json(response_formatter(DEFAULT_204), 200);
-    }
-
-    /**
+     
+                 // 🔔 Notification data
+                 $notificationData = [
+                     'user_id' => $booking->customer_id ?? null,
+                     'message' => $booking->is_paid
+                         ? 'Your booking payment has been marked as PAID'
+                         : 'Your booking payment has been marked as UNPAID',
+                     'data' => [
+                         'booking_id' => $booking->id,
+                         'is_paid' => $booking->is_paid,
+                         'type' => 'booking_payment'
+                     ]
+                 ];
+     
+                 //  Log notification instead of sending
+                 Log::info('Notification data:', $notificationData);
+     
+                 //  Uncomment to actually send
+                 $notificationService->send(
+                    //  $booking->user,
+                    $notificationData['user_id'],
+                     $notificationData['message'],
+                     $notificationData['data']
+                 );
+     
+                 return response()->json(
+                     response_formatter(DEFAULT_STATUS_UPDATE_200),
+                     200
+                 );
+             }
+     
+             return response()->json(
+                 response_formatter(NO_CHANGES_FOUND),
+                 200
+             );
+         }
+     
+         // -------- REPEAT BOOKING --------
+         if ($repeatBooking) {
+             $repeatBooking->is_paid = $request->payment_status == '1' ? 1 : 0;
+     
+             if ($repeatBooking->isDirty('is_paid')) {
+                 $repeatBooking->save();
+     
+                 $notificationData = [
+                     'user_id' => $repeatBooking->user->id ?? null,
+                     'message' => $repeatBooking->is_paid
+                         ? 'Your recurring booking payment has been marked as PAID'
+                         : 'Your recurring booking payment has been marked as UNPAID',
+                     'data' => [
+                         'booking_id' => $repeatBooking->id,
+                         'is_paid' => $repeatBooking->is_paid,
+                         'type' => 'repeat_booking_payment'
+                     ]
+                 ];
+     
+                 Log::info('Notification data Repeat:', $notificationData);
+     
+                 // 🔔 Uncomment to actually send
+                 // $notificationService->send(
+                 //     $repeatBooking->user,
+                 //     $notificationData['message'],
+                 //     $notificationData['data']
+                 // );
+     
+                 return response()->json(
+                     response_formatter(DEFAULT_STATUS_UPDATE_200),
+                     200
+                 );
+             }
+     
+             return response()->json(
+                 response_formatter(NO_CHANGES_FOUND),
+                 200
+             );
+         }
+     
+         return response()->json(
+             response_formatter(DEFAULT_204),
+             200
+         );
+     }
+     
+         /**
      * Display a listing of the resource.
      * @param $bookingId
      * @param Request $request
