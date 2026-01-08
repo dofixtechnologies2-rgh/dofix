@@ -5,6 +5,8 @@ namespace Modules\Notification\Services;
 use Modules\Notification\Notifications\SystemNotification;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+// use App\Models\User;
+use Modules\UserManagement\Entities\User;
 
 class NotificationService
 {
@@ -27,13 +29,14 @@ class NotificationService
         }
 
         // Handle collection of users
-        if ($users instanceof Collection) {
-            foreach ($users as $user) {
-                $this->notifyUser($user, $message, $data);
-            }
-        } else {
-            $this->notifyUser($users, $message, $data);
-        }
+         $this->notifyUser($users, $message, $data);
+        // if ($users instanceof Collection) {
+        //     foreach ($users as $user) {
+        //         $this->notifyUser($user, $message, $data);
+        //     }
+        // } else {
+        //     $this->notifyUser($users, $message, $data);
+        // }
     }
 
     /**
@@ -50,15 +53,16 @@ class NotificationService
         }
 
         try {
-            $user->notify(new SystemNotification($message, $data));
+            $getUser = User::where('id', $user)->first();
+            $getUser->notify(new SystemNotification($message, $data));
             Log::info('Notification sent successfully', [
-                'user_id' => $user->id,
+                'user_id' => $user,
                 'message' => $message,
                 'data' => $data,
             ]);
         } catch (\Throwable $e) {
             Log::error('NotificationService: Failed to send notification', [
-                'user_id' => $user->id ?? null,
+                'user_id' => $user ?? null,
                 'message' => $message,
                 'data' => $data,
                 'error' => $e->getMessage(),
